@@ -1,9 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { Download, FileSpreadsheet } from 'lucide-react';
-import { SAMPLE_FILE_PATH } from '../../utils/sampleData';
+import { getSampleFileName, getSampleFilePath } from '../../utils/sampleData';
 
 export default function SampleFileDownload() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const samplePath = getSampleFilePath(i18n.language);
+  const sampleFileName = getSampleFileName(i18n.language);
 
   return (
     <div className="rounded-xl border border-border bg-white p-5">
@@ -21,8 +23,8 @@ export default function SampleFileDownload() {
         </div>
 
         <a
-          href={SAMPLE_FILE_PATH}
-          download="ornek-bom-verisi.xlsx"
+          href={samplePath}
+          download={sampleFileName}
           className="inline-flex items-center justify-center gap-2 rounded-lg border border-primary-800 bg-white px-4 py-2 text-sm font-medium text-primary-800 transition-colors hover:bg-surface"
         >
           <Download className="h-4 w-4" />

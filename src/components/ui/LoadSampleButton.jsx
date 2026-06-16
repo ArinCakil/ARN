@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Loader2, Sparkles } from 'lucide-react';
 import { useBom } from '../../context/BomContext';
-import { SAMPLE_BOM_DATA } from '../../utils/sampleData';
+import { getSampleFileName, getSampleFilePath, SAMPLE_BOM_DATA } from '../../utils/sampleData';
 
 /**
  * @param {{ onSuccess?: () => void }} props
  */
 export default function LoadSampleButton({ onSuccess }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { uploadFile, loadParsedData, isLoading, hasData } = useBom();
   const [loading, setLoading] = useState(false);
 
@@ -17,11 +17,12 @@ export default function LoadSampleButton({ onSuccess }) {
 
     setLoading(true);
     try {
-      const response = await fetch('/samples/ornek-bom-verisi.xlsx');
+      const samplePath = getSampleFilePath(i18n.language);
+      const response = await fetch(samplePath);
       if (!response.ok) throw new Error('fetch failed');
 
       const buffer = await response.arrayBuffer();
-      const file = new File([buffer], 'ornek-bom-verisi.xlsx', {
+      const file = new File([buffer], getSampleFileName(i18n.language), {
         type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       });
       await uploadFile(file);

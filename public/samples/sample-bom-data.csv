@@ -1,0 +1,16 @@
+Component Name,Category,Quarter,Unit Cost,Quantity,Total Cost,Budget
+Lidar Sensor Module,Sensors,Q1,450,4,1800,2000
+Ultrasonic Distance Sensor,Sensors,Q1,25,20,500,550
+Main Control Processor,Processors,Q1,120,5,600,650
+Aluminum Chassis,Materials,Q1,300,2,600,700
+HMI Touch Screen,Interfaces,Q2,150,3,450,500
+SCADA Control Software,Interfaces,Q2,500,1,500,480
+Assembly Labor,Labor,Q2,40,100,4000,3800
+Industrial Vision Camera,Sensors,Q2,200,6,1200,1300
+Embedded Microcontroller,Processors,Q3,15,50,750,800
+Steel Mounting Brackets,Materials,Q3,5,200,1000,1100
+Cable Harness,Electronics,Q3,80,10,800,850
+System Test Labor,Labor,Q4,50,80,4000,4200
+Temperature and Humidity Sensor,Sensors,Q4,30,15,450,500
+Power Supply Unit,Electronics,Q4,90,8,720,750
+Data Transmission Module,Interfaces,Q4,110,5,550,600
