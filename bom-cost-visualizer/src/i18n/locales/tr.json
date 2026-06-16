@@ -1,0 +1,123 @@
+{
+  "app": {
+    "title": "BOM Maliyet Görselleştirici",
+    "tagline": "Daha az gürültü. Daha çok içgörü.",
+    "description": "Karmaşık BOM maliyet verilerini interaktif görsel zekaya dönüştürün."
+  },
+  "nav": {
+    "dashboard": "Gösterge Paneli",
+    "dataTable": "Veri Tablosu",
+    "upload": "Veri Yükle"
+  },
+  "language": {
+    "en": "EN",
+    "tr": "TR",
+    "switch": "Dili değiştir"
+  },
+  "upload": {
+    "title": "BOM Verisi Yükle",
+    "subtitle": "Excel dosyanızı buraya sürükleyip bırakın veya tıklayarak seçin",
+    "supported": "Desteklenen formatlar: .xlsx, .xls",
+    "processing": "Dosya işleniyor...",
+    "success": "Dosya başarıyla yüklendi",
+    "error": "Dosya ayrıştırılamadı. Lütfen formatı kontrol edin.",
+    "empty": "Henüz veri yüklenmedi",
+    "browse": "Dosya seç",
+    "dropHere": "Dosyayı buraya bırakın",
+    "loadedFile": "Yüklendi: {{fileName}}",
+    "rowsParsed": "{{count}} kalem ayrıştırıldı",
+    "goToDashboard": "Gösterge Paneline Git",
+    "downloadSample": "Örnek Excel dosyasını indir",
+    "sampleHint": "Gösterge panelini hemen keşfetmek için demo veri setini deneyin",
+    "loadSample": "Örnek veriyi yükle",
+    "errors": {
+      "generic": "Dosya ayrıştırılamadı. Lütfen formatı kontrol edin.",
+      "unsupported": "Desteklenmeyen dosya formatı. .xlsx, .xls veya .csv kullanın",
+      "missingColumns": "Gerekli sütunlar bulunamadı (Bileşen Adı, Toplam Maliyet)",
+      "emptySheet": "Elektronik tablo boş görünüyor",
+      "noValidRows": "Dosyada geçerli veri satırı bulunamadı"
+    }
+  },
+  "kpi": {
+    "totalCost": "Toplam Maliyet",
+    "budgetVariance": "Bütçe Varyansı",
+    "topCategory": "En Yüksek Maliyetli Kategori",
+    "itemCount": "Toplam Kalem",
+    "avgUnitCost": "Ort. Birim Maliyet",
+    "overBudget": "Bütçe üstü",
+    "underBudget": "Bütçe altı",
+    "onBudget": "Bütçede"
+  },
+  "charts": {
+    "costDistribution": {
+      "title": "Maliyet Dağılımı",
+      "subtitle": "Kategorilere göre yüzde dağılımı"
+    },
+    "topCostDrivers": {
+      "title": "En Yüksek Maliyet Kalemleri",
+      "subtitle": "Toplam maliyete göre sıralanmış en yüksek kalemler"
+    },
+    "categoryComparison": {
+      "title": "Kategori Bazlı Karşılaştırma",
+      "subtitle": "Disiplin veya bileşen grubuna göre maliyet analizi"
+    },
+    "costTrend": {
+      "title": "Zaman İçindeki Maliyet",
+      "subtitle": "Dönemler arası bütçe trendi",
+      "noData": "Yüklenen dosyada zaman serisi verisi bulunmuyor"
+    },
+    "tooltip": {
+      "cost": "Maliyet",
+      "percentage": "Pay",
+      "quantity": "Miktar",
+      "unitCost": "Birim Maliyet",
+      "category": "Kategori",
+      "period": "Dönem"
+    }
+  },
+  "table": {
+    "title": "Ham Veri Tablosu",
+    "search": "Bileşen ara...",
+    "noData": "Gösterilecek veri yok. Başlamak için bir Excel dosyası yükleyin.",
+    "columns": {
+      "componentName": "Bileşen Adı",
+      "category": "Kategori",
+      "unitCost": "Birim Maliyet",
+      "quantity": "Miktar",
+      "totalCost": "Toplam Maliyet",
+      "period": "Dönem"
+    },
+    "rows": "{{count}} satır",
+    "sortAsc": "Artan sırala",
+    "sortDesc": "Azalan sırala"
+  },
+  "categories": {
+    "mechanical": "Mekanik",
+    "electronics": "Elektronik",
+    "structural": "Yapısal",
+    "sensors": "Sensörler",
+    "processors": "İşlemciler",
+    "materials": "Malzemeler",
+    "assembly": "Montaj",
+    "labor": "İşçilik",
+    "interfaces": "Arayüzler",
+    "other": "Diğer"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "currency": "USD",
+    "notAvailable": "Yok",
+    "clear": "Temizle",
+    "export": "Dışa Aktar"
+  },
+  "export": {
+    "downloadPdf": "PDF Raporu İndir",
+    "generating": "PDF oluşturuluyor...",
+    "reportTitle": "BOM Maliyet Raporu",
+    "generatedAt": "Oluşturulma",
+    "summary": "Yönetici Özeti",
+    "kpiCards": "Temel Metrikler",
+    "charts": "Görsel Analiz",
+    "error": "PDF oluşturulamadı. Lütfen tekrar deneyin."
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "app": {
+    "title": "BOM Cost Visualizer",
+    "tagline": "Less noise. More insight.",
+    "description": "Transform complex BOM cost data into interactive visual intelligence."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "dataTable": "Data Table",
+    "upload": "Upload Data"
+  },
+  "language": {
+    "en": "EN",
+    "tr": "TR",
+    "switch": "Switch language"
+  },
+  "upload": {
+    "title": "Upload BOM Data",
+    "subtitle": "Drag and drop your Excel file here, or click to browse",
+    "supported": "Supported formats: .xlsx, .xls",
+    "processing": "Processing file...",
+    "success": "File loaded successfully",
+    "error": "Failed to parse file. Please check the format.",
+    "empty": "No data loaded yet",
+    "browse": "Browse files",
+    "dropHere": "Drop file here",
+    "loadedFile": "Loaded: {{fileName}}",
+    "rowsParsed": "{{count}} items parsed",
+    "goToDashboard": "View Dashboard",
+    "downloadSample": "Download sample Excel file",
+    "sampleHint": "Try the demo dataset to explore the dashboard instantly",
+    "loadSample": "Load sample data",
+    "errors": {
+      "generic": "Failed to parse file. Please check the format.",
+      "unsupported": "Unsupported file format. Use .xlsx, .xls or .csv",
+      "missingColumns": "Required columns not found (Component Name, Total Cost)",
+      "emptySheet": "The spreadsheet appears to be empty",
+      "noValidRows": "No valid data rows found in the file"
+    }
+  },
+  "kpi": {
+    "totalCost": "Total Cost",
+    "budgetVariance": "Budget Variance",
+    "topCategory": "Highest Cost Category",
+    "itemCount": "Total Items",
+    "avgUnitCost": "Avg. Unit Cost",
+    "overBudget": "Over budget",
+    "underBudget": "Under budget",
+    "onBudget": "On budget"
+  },
+  "charts": {
+    "costDistribution": {
+      "title": "Cost Distribution",
+      "subtitle": "Percentage breakdown by category"
+    },
+    "topCostDrivers": {
+      "title": "Top Cost Drivers",
+      "subtitle": "Highest cost items ranked by total cost"
+    },
+    "categoryComparison": {
+      "title": "Category Comparison",
+      "subtitle": "Cost analysis by discipline or component group"
+    },
+    "costTrend": {
+      "title": "Cost Over Time",
+      "subtitle": "Budget trend across periods",
+      "noData": "No time-series data available in the uploaded file"
+    },
+    "tooltip": {
+      "cost": "Cost",
+      "percentage": "Share",
+      "quantity": "Quantity",
+      "unitCost": "Unit Cost",
+      "category": "Category",
+      "period": "Period"
+    }
+  },
+  "table": {
+    "title": "Raw Data Table",
+    "search": "Search components...",
+    "noData": "No data to display. Upload an Excel file to get started.",
+    "columns": {
+      "componentName": "Component Name",
+      "category": "Category",
+      "unitCost": "Unit Cost",
+      "quantity": "Quantity",
+      "totalCost": "Total Cost",
+      "period": "Period"
+    },
+    "rows": "{{count}} rows",
+    "sortAsc": "Sort ascending",
+    "sortDesc": "Sort descending"
+  },
+  "categories": {
+    "mechanical": "Mechanical",
+    "electronics": "Electronics",
+    "structural": "Structural",
+    "sensors": "Sensors",
+    "processors": "Processors",
+    "materials": "Materials",
+    "assembly": "Assembly",
+    "labor": "Labor",
+    "interfaces": "Interfaces",
+    "other": "Other"
+  },
+  "common": {
+    "loading": "Loading...",
+    "currency": "USD",
+    "notAvailable": "N/A",
+    "clear": "Clear",
+    "export": "Export"
+  },
+  "export": {
+    "downloadPdf": "Download PDF Report",
+    "generating": "Generating PDF...",
+    "reportTitle": "BOM Cost Report",
+    "generatedAt": "Generated",
+    "summary": "Executive Summary",
+    "kpiCards": "Key Metrics",
+    "charts": "Visual Analysis",
+    "error": "PDF could not be generated. Please try again."
+  }
+}
