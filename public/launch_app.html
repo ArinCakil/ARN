@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Launch App — BOM Maliyet Görselleştirici</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg-start: #0f172a;
+        --bg-end: #1e3a8a;
+        --accent: #0d9488;
+        --accent-hover: #14b8a6;
+        --text: #f8fafc;
+        --muted: #94a3b8;
+        --phone-width: 320px;
+        --phone-height: 660px;
+        --bezel: 14px;
+        --radius: 44px;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: 'Inter', system-ui, sans-serif;
+        background: linear-gradient(145deg, var(--bg-start) 0%, var(--bg-end) 55%, #0f766e 100%);
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        overflow-x: hidden;
+      }
+
+      .launcher {
+        text-align: center;
+        max-width: 520px;
+        width: 100%;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+      }
+
+      .launcher.hidden {
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        transform: translateY(-20px);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #99f6e4;
+        margin-bottom: 20px;
+      }
+
+      .badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #2dd4bf;
+        box-shadow: 0 0 10px #2dd4bf;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.45;
+        }
+      }
+
+      h1 {
+        font-size: clamp(1.75rem, 5vw, 2.5rem);
+        font-weight: 700;
+        line-height: 1.15;
+        margin-bottom: 12px;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 32px;
+      }
+
+      .launch-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 16px 36px;
+        border: none;
+        border-radius: 16px;
+        background: linear-gradient(135deg, var(--accent) 0%, #0891b2 100%);
+        color: white;
+        font-size: 1.05rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 12px 40px rgba(13, 148, 136, 0.45);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .launch-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 48px rgba(13, 148, 136, 0.55);
+      }
+
+      .launch-btn:active {
+        transform: translateY(0);
+      }
+
+      .launch-btn svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .hint {
+        margin-top: 20px;
+        font-size: 0.85rem;
+        color: rgba(148, 163, 184, 0.85);
+      }
+
+      .simulator-wrap {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        animation: fadeUp 0.6s ease forwards;
+      }
+
+      .simulator-wrap.visible {
+        display: flex;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .simulator-header {
+        text-align: center;
+      }
+
+      .simulator-header h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .simulator-header p {
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .phone-scene {
+        perspective: 1200px;
+        padding: 12px 0 24px;
+      }
+
+      .phone {
+        position: relative;
+        width: var(--phone-width);
+        height: var(--phone-height);
+        padding: var(--bezel);
+        border-radius: var(--radius);
+        background: linear-gradient(160deg, #2d2d2d 0%, #0a0a0a 40%, #1a1a1a 100%);
+        box-shadow:
+          0 0 0 2px #3f3f46,
+          0 0 0 4px #18181b,
+          0 30px 80px rgba(0, 0, 0, 0.65),
+          inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        transform: rotateX(2deg);
+        transition: transform 0.4s ease;
+      }
+
+      .phone:hover {
+        transform: rotateX(0deg) scale(1.01);
+      }
+
+      .phone::before {
+        content: '';
+        position: absolute;
+        right: -3px;
+        top: 120px;
+        width: 3px;
+        height: 56px;
+        background: #3f3f46;
+        border-radius: 0 2px 2px 0;
+        box-shadow: 0 70px 0 #3f3f46;
+      }
+
+      .phone::after {
+        content: '';
+        position: absolute;
+        left: -3px;
+        top: 100px;
+        width: 3px;
+        height: 36px;
+        background: #3f3f46;
+        border-radius: 2px 0 0 2px;
+        box-shadow: 0 50px 0 #3f3f46, 0 100px 0 #3f3f46;
+      }
+
+      .screen {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: calc(var(--radius) - var(--bezel));
+        overflow: hidden;
+        background: #000;
+      }
+
+      .status-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px 0;
+        font-size: 12px;
+        font-weight: 600;
+        color: #fff;
+        pointer-events: none;
+      }
+
+      .dynamic-island {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 96px;
+        height: 28px;
+        background: #000;
+        border-radius: 20px;
+        z-index: 11;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05);
+      }
+
+      .status-icons {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-left: auto;
+      }
+
+      .signal,
+      .wifi,
+      .battery {
+        display: block;
+        background: #fff;
+        border-radius: 1px;
+      }
+
+      .signal {
+        width: 16px;
+        height: 10px;
+        clip-path: polygon(0 100%, 25% 40%, 50% 70%, 75% 20%, 100% 50%, 100% 100%);
+      }
+
+      .wifi {
+        width: 14px;
+        height: 10px;
+        border-radius: 50% 50% 0 0;
+        border: 2px solid #fff;
+        border-bottom: none;
+        background: transparent;
+      }
+
+      .battery {
+        width: 22px;
+        height: 10px;
+        border: 1.5px solid #fff;
+        border-radius: 2px;
+        position: relative;
+      }
+
+      .battery::after {
+        content: '';
+        position: absolute;
+        right: -4px;
+        top: 2px;
+        width: 2px;
+        height: 4px;
+        background: #fff;
+        border-radius: 0 1px 1px 0;
+      }
+
+      .battery::before {
+        content: '';
+        position: absolute;
+        inset: 1.5px;
+        width: 65%;
+        background: #34d399;
+        border-radius: 1px;
+      }
+
+      .app-frame {
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: #fff;
+      }
+
+      .home-indicator {
+        position: absolute;
+        bottom: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.35);
+        border-radius: 4px;
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .toolbar button {
+        padding: 10px 18px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .toolbar button:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .loading-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: #0f172a;
+        color: #94a3b8;
+        font-size: 13px;
+        z-index: 5;
+        transition: opacity 0.3s ease;
+      }
+
+      .loading-overlay.done {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .spinner {
+        width: 32px;
+        height: 32px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-top-color: #2dd4bf;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (max-width: 400px) {
+        :root {
+          --phone-width: 280px;
+          --phone-height: 580px;
+          --bezel: 12px;
+          --radius: 38px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="launcher" id="launcher">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Mobil Simülatör
+      </div>
+      <h1>BOM Maliyet Görselleştirici</h1>
+      <p class="subtitle">
+        Uygulamayı gerçek bir telefondaymış gibi internet üzerinden deneyin.
+        Başlat düğmesine basın ve mobil simülatör açılsın.
+      </p>
+      <button type="button" class="launch-btn" id="launchBtn" aria-label="Uygulamayı başlat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <rect x="5" y="2" width="14" height="20" rx="3" />
+          <line x1="12" y1="18" x2="12" y2="18.01" stroke-linecap="round" />
+        </svg>
+        Uygulamayı Başlat
+      </button>
+      <p class="hint">launch_app — Hoca demo modu</p>
+    </section>
+
+    <section class="simulator-wrap" id="simulator" aria-live="polite">
+      <div class="simulator-header">
+        <h2>Telefon Simülatörü</h2>
+        <p>Uygulama mobil ekranda çalışıyor</p>
+      </div>
+
+      <div class="phone-scene">
+        <div class="phone" role="img" aria-label="iPhone simülatörü">
+          <div class="screen">
+            <div class="dynamic-island"></div>
+            <div class="status-bar">
+              <span id="clock">09:41</span>
+              <div class="status-icons">
+                <span class="signal" aria-hidden="true"></span>
+                <span class="wifi" aria-hidden="true"></span>
+                <span class="battery" aria-hidden="true"></span>
+              </div>
+            </div>
+            <div class="loading-overlay" id="loading">
+              <div class="spinner"></div>
+              <span>Uygulama yükleniyor...</span>
+            </div>
+            <iframe
+              class="app-frame"
+              id="appFrame"
+              title="BOM Maliyet Görselleştirici"
+              allow="fullscreen"
+            ></iframe>
+            <div class="home-indicator"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <button type="button" id="reloadBtn">Yenile</button>
+        <button type="button" id="fullscreenBtn">Tam Ekran</button>
+        <button type="button" id="backBtn">Geri Dön</button>
+      </div>
+    </section>
+
+    <script>
+      (function () {
+        const launcher = document.getElementById('launcher');
+        const simulator = document.getElementById('simulator');
+        const launchBtn = document.getElementById('launchBtn');
+        const appFrame = document.getElementById('appFrame');
+        const loading = document.getElementById('loading');
+        const clock = document.getElementById('clock');
+        const reloadBtn = document.getElementById('reloadBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const backBtn = document.getElementById('backBtn');
+
+        function getAppUrl() {
+          const url = new URL(window.location.href);
+          const basePath = url.pathname.replace(/launch_app\.html$/, '');
+          return url.origin + basePath;
+        }
+
+        function updateClock() {
+          const now = new Date();
+          clock.textContent = now.toLocaleTimeString('tr-TR', {
+            hour: '2-digit',
+            minute: '2-digit',
+          });
+        }
+
+        function loadApp() {
+          appFrame.src = getAppUrl();
+        }
+
+        function showSimulator() {
+          launcher.classList.add('hidden');
+          simulator.classList.add('visible');
+          loadApp();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        launchBtn.addEventListener('click', showSimulator);
+
+        appFrame.addEventListener('load', function () {
+          loading.classList.add('done');
+        });
+
+        reloadBtn.addEventListener('click', function () {
+          loading.classList.remove('done');
+          loadApp();
+        });
+
+        fullscreenBtn.addEventListener('click', function () {
+          const phone = document.querySelector('.phone');
+          if (phone.requestFullscreen) {
+            phone.requestFullscreen();
+          } else if (phone.webkitRequestFullscreen) {
+            phone.webkitRequestFullscreen();
+          }
+        });
+
+        backBtn.addEventListener('click', function () {
+          simulator.classList.remove('visible');
+          launcher.classList.remove('hidden');
+          appFrame.src = 'about:blank';
+          loading.classList.remove('done');
+        });
+
+        if (new URLSearchParams(window.location.search).get('auto') === '1') {
+          showSimulator();
+        }
+
+        updateClock();
+        setInterval(updateClock, 30000);
+      })();
+    </script>
+  </body>
+</html>

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import {
   BarChart3,
   LayoutDashboard,
+  Smartphone,
   Table2,
   Upload,
   X,
@@ -95,7 +96,16 @@ export default function Sidebar({ activeSection, onNavigate, isOpen, onClose }) 
           })}
         </nav>
 
-        <div className="border-t border-border p-4">
+        <div className="border-t border-border p-4 space-y-3">
+          <a
+            href={`${import.meta.env.BASE_URL}launch_app.html`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center gap-3 rounded-lg bg-gradient-to-r from-accent-teal to-accent-sky px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
+          >
+            <Smartphone className="h-4 w-4 shrink-0" />
+            {t('nav.launchApp')}
+          </a>
           <p className="text-xs leading-relaxed text-muted">
             {t('app.description')}
           </p>

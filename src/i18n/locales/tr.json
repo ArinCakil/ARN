@@ -7,7 +7,8 @@
   "nav": {
     "dashboard": "Gösterge Paneli",
     "dataTable": "Veri Tablosu",
-    "upload": "Veri Yükle"
+    "upload": "Veri Yükle",
+    "launchApp": "Uygulamayı Başlat"
   },
   "language": {
     "en": "EN",
